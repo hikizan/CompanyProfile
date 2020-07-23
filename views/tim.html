@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="CompanyProfile">
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/assets/css/materialize.min.css"
+      media="screen,projection"
+    />
+
+    <!-- my CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Team</title>
+  </head>
+
+  <body ng-controller="TeamController">
+    <!-- navbar -->
+
+    <div class="navbar-fixed">
+      <nav class="nav-wrapper purple darken-1">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Selamat Datang Admin | <b>WMA</b></a>
+          <ul class="right hide-on-med-and-down">
+            <li>
+              <div class="nav-wrapper">
+                <form>
+                  <div class="input-field">
+                    <input id="search" type="search" required />
+                    <label class="label-icon" for="search"
+                      ><i class="material-icons">search</i></label
+                    >
+                    <i class="material-icons">close</i>
+                  </div>
+                </form>
+              </div>
+            </li>
+            <li>
+              <a href="#">
+                <i
+                  class="material-icons"
+                  data-toggle="tooltip"
+                  title="Notifikasi"
+                  >notifications</i
+                >
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i
+                  class="material-icons"
+                  data-toggle="tooltip"
+                  title="Surat Masuk"
+                  >message</i
+                >
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <i class="material-icons" data-toggle="tooltip" title="Sign Out"
+                  >logout</i
+                >
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- sidebar -->
+    <div class="row no-gutters">
+      <div class="col m2 s12 grey darken-2">
+        <nav>
+          <div class="nav flex-column">
+            <ul class="hide-on-med-and-down">
+              <li class="nav-item">
+                <a class="nav-link white-text" href="/admin">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a href="/about" class="white-text nav-link"
+                  >Setting About us</a
+                >
+                <hr class="grey lighten" />
+              </li>
+              <li class="nav-item">
+                <a href="/servis" class="white-text nav-link">Daftar Service</a>
+                <hr class="grey lighten" />
+              </li>
+              <li class="nav-item">
+                <a href="/portfolio" class="white-text nav-link"
+                  >Data Portfolio</a
+                >
+                <hr class="grey lighten" />
+              </li>
+              <li class="nav-item">
+                <a href="/tim" class="white-text nav-link">Data Team</a>
+                <hr class="grey lighten" />
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <!-- content -->
+      <div class="col m10 s12">
+        <h3 class="dash">
+          <i class="medium material-icons left">group</i>Daftar Team
+        </h3>
+        <section>
+          <a
+            class="waves-effect waves-light btn modal-trigger purple lighten-1"
+            href="#modal1"
+            ><i class="material-icons left">add</i>Tambah Data Team</a
+          >
+          <div class="card-panel red lighten-1 white-text" id="validasi" hidden>
+            ERROR : <strong>NIM SUDAH ADA DI DATABASE!!!</strong>
+          </div>
+          <table class="striped card">
+            <thead>
+              <tr>
+                <th scope="col" class="center">No</th>
+                <th scope="col" class="center">Nama</th>
+                <th scope="col" class="center">NIM</th>
+                <th scope="col" class="center">Tugas</th>
+                <th colspan="2" scope="col" class="center"></th>
+              </tr>
+            </thead>
+
+            <tbody ng-repeat="tim in teams">
+              <tr>
+                <td class="center">{{$index + 1}}</td>
+                <td class="center">{{tim.nama}}</td>
+                <td class="center">{{tim.nim}}</td>
+                <td class="center">{{tim.tugas}}</td>
+                <td class="center">
+                  <a
+                    href="{{'/edit_tim/'+ tim._id}}"
+                    class="orange btn modal-trigger btn-flat"
+                  >
+                    <i
+                      class="material-icons white-text"
+                      data-toggle="tooltip"
+                      title="edit"
+                      >edit</i
+                    >
+                  </a>
+                </td>
+                <td class="center">
+                  <button class="red btn-flat" ng-click="delteam(tim._id)">
+                    <i
+                      class="material-icons white-text"
+                      data-toggle="tooltip"
+                      title="hapus"
+                      >delete</i
+                    >
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <!-- Modal Trigger -->
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <form action="/team" method="POST" enctype="multipart/form-data">
+        <div class="modal-content">
+          <h5>Input Data Team</h5>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input type="file" />
+              <input
+                type="file"
+                required
+                name="gambar"
+                accept=".jpg,.jpeg,.png"
+              />
+            </div>
+            <div class="file-path-wrapper">
+              <input
+                class="file-path validate"
+                type="text"
+                placeholder="GAMBAR"
+              />
+            </div>
+          </div>
+
+          <div class="input-field">
+            <input type="text" required name="nama" />
+            <label for="nama">Nama</label>
+          </div>
+          <div class="input-field">
+            <input type="text" name="nim" id="nim" required class="validate" />
+            <label for="nim">NIM</label>
+          </div>
+          <div class="input-field">
+            <input
+              type="text"
+              name="tugas"
+              id="tugas"
+              required
+              class="validate"
+            />
+            <label for="tugas">Tugas</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="waves-effect waves-green btn purple lighten-1"
+            type="submit"
+          >
+            Submit <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div id="modal2" class="modal">
+      <form action="/team" method="POST">
+        <div class="modal-content">
+          <h5>Update Data Team</h5>
+          <div class="input-field col s12">
+            <select>
+              <option ng-model="UpData._id" ng-repeat="tim in UpData"
+                >{{tim.nama}}</option
+              >
+            </select>
+          </div>
+          <div class="input-field">
+            <input
+              type="text"
+              ng-model="UpData.nama"
+              id="nama"
+              required
+              class="validate"
+            />
+            <label for="nama">Nama</label>
+          </div>
+          <div class="input-field">
+            <input
+              type="text"
+              ng-model="UpData.nim"
+              id="nim"
+              required
+              class="validate"
+            />
+            <label for="nim">NIM</label>
+          </div>
+          <div class="input-field">
+            <input
+              type="text"
+              ng-model="UpData.tugas"
+              id="tugas"
+              required
+              class="validate"
+            />
+            <label for="tugas">Tugas</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="waves-effect waves-green btn purple lighten-1"
+            ng-click="Uptim()"
+            type="submit"
+          >
+            Submit <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="/assets/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".modal");
+        var instances = M.Modal.init(elems);
+        var elems = document.querySelectorAll("select");
+        var instances = M.FormSelect.init(elems);
+      });
+    </script>
+    <script src="/assets/angular.min.js"></script>
+    <script src="/app/controller/tim.js"></script>
+  </body>
+</html>

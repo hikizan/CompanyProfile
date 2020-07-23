@@ -1,0 +1,62 @@
+.tab {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.img {
+  size: 10rem;
+}
+
+.ab {
+  margin-top: 50px;
+}
+
+.brand-logo {
+  margin-right: auto;
+  margin-left: 30px;
+}
+
+.label-icon {
+  height: max-content;
+}
+
+.flex-column {
+  margin-top: 20px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-link:hover {
+  background-color: lightgray;
+}
+
+.dash {
+  padding: 20px;
+  padding-top: 2px;
+}
+
+.card-action {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  padding: 10px 0;
+}
+
+.display-4 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.card-body-icon {
+  z-index: 0;
+  opacity: 0.4;
+}
+#in-gambar {
+  width: 72rem;
+  font-size: 80%;
+  padding: 0.3rem;
+  border: 1px solid rgba(0, 0, 0, 0.247);
+  transition: border 0.3s ease-in-out;
+}
+#in-gambar:hover {
+  border: 1px solid #000;
+}
